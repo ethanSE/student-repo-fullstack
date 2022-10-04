@@ -1,4 +1,3 @@
-/* eslint-disable no-else-return */
 /** Exercise 01 - Fizzbuzz
 
 Write a program that writes all the numbers from 1 to 100, with some exceptions:
@@ -9,21 +8,19 @@ Write a program that writes all the numbers from 1 to 100, with some exceptions:
 Use console.log() to write the proper output to the command line.
 
 * */
-const branch = (i) => {
-  if (i % 15 === 0) {
-    return 'fizzbuzz';
-  } else if (i % 3 === 0) {
-    return 'fizz';
-  } else if (i % 5 === 0) {
-    return 'buzz';
-  } else {
-    return i;
-  }
-};
 
 const fizzbuzz = () => {
-  const a = Array.from(new Array(100).keys(), (n) => branch(n + 1));
-  a.forEach((e) => console.log(e));
-};
+    for (let i = 1; i <= 100; i += 1) {
+        if (i % 15 === 0) {
+            console.log('fizzbuzz')
+        } else if (i % 3 === 0) {
+            console.log('fizz')
+        } else if (i % 5 === 0) {
+            console.log('buzz')
+        } else {
+            console.log(i)
+        }
+    }
+}
 
-fizzbuzz();
+fizzbuzz()
