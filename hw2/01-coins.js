@@ -1,15 +1,54 @@
 /** Exercise 01 - Coins **/
+const makeCoin = (singular, plural, value) => ({
+    singular,
+    plural,
+    value,
+});
+
+//array of tuples of name and value of coins
+const coins = [
+    makeCoin('dollar', 'dollars', 100),
+    makeCoin('quarter', 'quarters', 25),
+    makeCoin('dime', 'dimes', 10),
+    makeCoin('nickel', 'nickels', 5),
+    makeCoin('penny', 'pennies', 1),
+];
 
 const calculateChange = (input) => {
-  // Add your code here
+    const cents = Math.floor(input * 100);
+    if (Number.isNaN(cents) || cents < 0 || cents > 1000) {
+        return 'Error: invalid input';
+    } else {
+        const { counts } = coins.reduce(outputReducer, {
+            centsRemaining: cents,
+            counts: `$${input} ==> `,
+        });
+        return counts.replaceAll(/([A-z]) ([0-9]+)/g, '$1, $2').trimEnd();
+    }
 };
 
-// Sample Test Cases
-console.log(calculateChange(4.62));
-// $4.62 ==> 4 dollars, 2 quarters, 1 dime, 2 pennies
-console.log(calculateChange(9.74));
-// $9.74 ==> 9 dollars, 2 quarters, 2 dimes, 4 pennies
-console.log(calculateChange(0.16));
-// $0.16 ==> 1 dime, 1 nickel, 1 penny
-console.log(calculateChange(15.11));
-// $15.11 ==> Error: the number is too large
+// calculate coin counts
+const outputReducer = (acc, coin) => {
+    let counts = acc.counts;
+    const centsRemaining = acc.centsRemaining % coin.value;
+    const quantity = Math.floor(acc.centsRemaining / coin.value);
+
+    if (quantity === 1) {
+        counts = acc.counts.concat(`${quantity} ${coin.singular} `);
+    } else if (quantity > 1) {
+        counts = acc.counts.concat(`${quantity} ${coin.plural} `);
+    }
+
+    return {
+        centsRemaining,
+        counts,
+    };
+};
+
+module.exports = calculateChange;
+
+function main() {
+    console.log(calculateChange(process.argv[2]));
+}
+
+main();
