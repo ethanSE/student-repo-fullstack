@@ -31,7 +31,7 @@ const printOutput = (output) => {
     console.log('========= Form Submission =========');
     console.log(`Name: ${output.name}`);
     console.log(`Email: ${output.email}`);
-    console.log(`Feedback: ${output.feedback}`);
+    console.log(`Feedback: ${output.feedback || 'No feedback was submitted.'}`);
     if (output.newsletter) {
         console.log('Newsletter: Yes, I would like to join the newsletter.');
     } else {
