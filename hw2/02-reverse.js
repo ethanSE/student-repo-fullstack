@@ -7,12 +7,12 @@ const generateOutput = (number) => {
             messageText: `${number.toString()} --> ${[...number.toString().split('')]
                 .reverse()
                 .join('')}`,
-            color: 'green',
+            color: '#990505',
         };
     } else {
         return {
             messageText: 'Error: Please input an 8-digit number',
-            color: 'red',
+            color: '#990505',
         };
     }
 };
