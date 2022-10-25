@@ -21,26 +21,23 @@ const calculateChange = (input) => {
     } else {
         const { counts } = coins.reduce(outputReducer, {
             centsRemaining: cents,
-            counts: `$${input} ==> `,
+            counts: [],
         });
-        return counts.replaceAll(/([A-z]) ([0-9]+)/g, '$1, $2').trimEnd();
+        return `$${input} ==> ${counts.join(', ')}`;
     }
 };
 
 // calculate coin counts
 const outputReducer = (acc, coin) => {
-    let counts = acc.counts;
-    const centsRemaining = acc.centsRemaining % coin.value;
     const quantity = Math.floor(acc.centsRemaining / coin.value);
 
-    if (quantity === 1) {
-        counts = acc.counts.concat(`${quantity} ${coin.singular} `);
-    } else if (quantity > 1) {
-        counts = acc.counts.concat(`${quantity} ${coin.plural} `);
+    let counts = acc.counts;
+    if (quantity > 0) {
+        counts = counts.concat(`${quantity} ${quantity === 1 ? coin.singular : coin.plural}`);
     }
 
     return {
-        centsRemaining,
+        centsRemaining: acc.centsRemaining % coin.value,
         counts,
     };
 };
