@@ -7,7 +7,7 @@ const generateOutput = (number) => {
             messageText: `${number.toString()} --> ${[...number.toString().split('')]
                 .reverse()
                 .join('')}`,
-            color: '#990505',
+            color: '#026600',
         };
     } else {
         return {
