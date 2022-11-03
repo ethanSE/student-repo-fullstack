@@ -24,18 +24,18 @@ const server = http.createServer((req, res) => {
             res.write(`<h1>Redirected</h1>`);
             break;
         case '/cache':
-            res.writeHead(200, { 'Content-Type': 'plaintext', 'Cache-Control': 'max-age=86400' });
+            res.writeHead(200, { 'Content-Type': 'text/plain', 'Cache-Control': 'max-age=86400' });
             res.write('This resource was cached');
             break;
         case '/cookie':
             res.writeHead(200, {
-                'Content-Type': 'plaintext',
+                'Content-Type': 'text/plain',
                 'Set-Cookie': 'hello=world',
             });
             res.write('cookies... yummm');
             break;
         case '/check-cookies':
-            res.writeHead(200, { 'Content-Type': 'plaintext' });
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
             res.write(`${!!req.headers.cookie?.includes('hello=world')}`);
             break;
         default:
@@ -49,3 +49,4 @@ const server = http.createServer((req, res) => {
 server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+//test
