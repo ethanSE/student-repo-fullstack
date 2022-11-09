@@ -9,10 +9,22 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
 
 // POST request
-app.post('', (req, res) => {
-  // Add your code here
+app.post('/submit', (req, res) => {
+    const searchParams = new URLSearchParams(req.body);
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write(`<p>Name: ${searchParams.get('nameInput')}</p>`);
+    res.write(`<p>Email: ${searchParams.get('emailInput')}</p>`);
+    res.write(`<p>Comments: ${searchParams.get('commentInput') || 'n/a'}</p>`);
+    res.write(
+        `<p>Newsletter: ${
+            searchParams.has('newsletter')
+                ? 'Yes, sign me up for the newsletter.'
+                : 'No, thank you.'
+        }</p>`
+    );
+    res.end();
 });
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+    console.log(`Server running at http://localhost:${port}`);
 });
